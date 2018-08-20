@@ -10,11 +10,11 @@ def home():
     '''
     if request.method == 'POST':
         user_url = str(request.form.get('url'))
-        if user_url != '':  # check for empty string
-            if urlparse(user_url).scheme == '':   # check http part
+        if user_url:  # check for empty string
+            if not urlparse(user_url).scheme:   # check http part
                 user_url = 'http://' + user_url
             ex_id = session.query(YAUS_t.id).filter_by(url=user_url).scalar()   # is the same URL already exist in db?
-            if ex_id is None:  # if URL is new
+            if not ex_id:  # if URL is new
                 try:
                     last_id = session.query(YAUS_t.id).order_by(YAUS_t.id.desc()).first() # get last row id
                     real_id = last_id[0] + 1     # id of current new URL
