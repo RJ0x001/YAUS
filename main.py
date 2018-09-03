@@ -20,11 +20,10 @@ def home():
                     real_id = last_id[0] + 1     # id of current new URL
                 except TypeError:
                     real_id = 1   # table is empty, this is the first URL in db
-                id_work = str(real_id).encode('ascii')  # start encode id, first to ascii
-                short_url = str(base64.b64encode(id_work)).rstrip("=")  # encode id with base64 algoritm, delete last '=' char
+                short_url = str(base64.b64encode(str(real_id).encode('ascii')))  # encode id with base64 algoritm
                 session.add(YAUS_t(user_url, short_url))    # add both URLs in db
             else:
-                short_url = session.query(YAUS_t.short_url).filter_by(id=ex_id).scalar() # URL already exist in db, get short URL
+                short_url = session.query(YAUS_t.short_url).filter_by(id=ex_id).scalar() # URL already exist in db
             session.commit()
             short_url_link = '127.0.0.1:5000/%s' % short_url    # make link to redirect
             return redirect(url_for('shortened', url=short_url_link))   # redirect to shortened page
