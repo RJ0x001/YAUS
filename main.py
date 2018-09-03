@@ -49,7 +49,7 @@ def redirect_url(short_url):
     :param short_url: generated short URL
     :return: redirected to user page
     '''
-    short_url_link = session.query(YAUS_t.url).filter_by(short_url=short_url).scalar() # get user's URL from db with short one
+    short_url_link = session.query(YAUS_t.url).filter_by(short_url=short_url).scalar() #get user's URL from db with short one
     if short_url_link is not None:
         return redirect(short_url_link)  # redirect to url
     return redirect(url_for('home'))    # redirect to home page if short_url doesn't exist in db
