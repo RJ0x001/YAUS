@@ -20,7 +20,7 @@ def home():
                     real_id = last_id[0] + 1     # id of current new URL
                 except TypeError:
                     real_id = 1   # table is empty, this is the first URL in db
-                short_url = str(base64.b64encode(str(real_id).encode('ascii')))  # encode id with base64 algoritm
+                short_url = str(gnb64(str(real_id)))  # encode id with base64 algoritm
                 session.add(YAUS_t(user_url, short_url))    # add both URLs in db
             else:
                 short_url = session.query(YAUS_t.short_url).filter_by(id=ex_id).scalar() # URL already exist in db
