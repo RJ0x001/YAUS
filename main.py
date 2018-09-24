@@ -1,4 +1,5 @@
 from config_yaus import *
+from func import gnb64
 
 
 @app.route('/', methods=['GET', 'POST'])
